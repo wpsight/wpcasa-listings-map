@@ -18,6 +18,8 @@ global $map_query, $args; ?>
 <script>
 function initialize() {
 
+	// add code
+
 	var mapOptions = {
 	    mapTypeId: google.maps.MapTypeId.<?php echo esc_js( $args['map_type'] ); ?>,
 	    mapTypeControl: <?php echo esc_js( $args['control_type'] ); ?>,
