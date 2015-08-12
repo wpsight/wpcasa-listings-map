@@ -1,0 +1,6 @@
+.wpsight-listings-map-sc #map-canvas {
+	margin-bottom: 20px;
+}
+.wpsight-listings-map-sc #map-canvas img {
+    max-width: none;
+}
