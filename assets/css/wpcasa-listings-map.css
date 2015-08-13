@@ -4,3 +4,6 @@
 .wpsight-listings-map-sc #map-canvas img {
     max-width: none;
 }
+.wpsight-infobox {
+	width: 200px;
+}

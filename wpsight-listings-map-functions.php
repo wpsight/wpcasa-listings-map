@@ -106,11 +106,7 @@ function wpsight_listings_map( $atts = array() ) {
 	
 	ob_start();
 	
-	if( $map_query->have_posts() ) {			
-		wpsight_get_template_part( 'listings', 'map', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );		
-	} else {			
-		wpsight_get_template_part( 'listings', 'no', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );		    
-	}
+	wpsight_get_template_part( 'listings', $map_query->have_posts() ? 'map' : 'no', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );		
 	
 	return apply_filters( 'wpsight_listings_map', ob_get_clean(), $args );
 	
