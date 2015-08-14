@@ -4,6 +4,9 @@ google.maps.event.addDomListener( window, 'load', function() {
 	// Use the 'wpsight_listings_map_options' filter to manipulate.
 	var mapOptions = wpsightMap.map;
 	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId];
+	mapOptions.mapTypeControl: wpsightMap.map.mapTypeControl == "true",
+    mapOptions.scrollwheel: wpsightMap.map.scrollwheel == "true",
+    mapOptions.streetViewControl: wpsightMap.map.streetViewControl == "true"
 	
 	// the DOM element that will contain the map
 	var mapElement = document.getElementById(wpsightMap.map.id),
