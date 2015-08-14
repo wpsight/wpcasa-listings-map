@@ -41,7 +41,8 @@ class WPSight_Listings_Map_Shortcode {
 	        'streetview' 	=> '',
             'before' 	 	=> '',
             'after'  	 	=> '',
-            'wrap'	 	 	=> 'div'
+            'wrap'	 	 	=> 'div',
+            'map_id'        => 'map-canvas'
         );
         
         // Merge shortcodes atts with defaults

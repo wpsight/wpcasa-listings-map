@@ -30,7 +30,8 @@ function wpsight_listings_map( $atts = array() ) {
 	    'map_type'		=> '',
 		'control_type'	=> '',
 		'scrollwheel'	=> '',
-	    'streetview' 	=> ''
+	    'streetview' 	=> '',
+	    'map_id'        => 'map-canvas'
 	);
 	
 	// Parse incoming $atts into an array and merge it with $defaults
