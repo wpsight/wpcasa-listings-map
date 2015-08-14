@@ -5,8 +5,8 @@ google.maps.event.addDomListener( window, 'load', function() {
 	var mapOptions = wpsightMap.map;
 	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId];
 	mapOptions.mapTypeControl: wpsightMap.map.mapTypeControl == "true",
-    mapOptions.scrollwheel: wpsightMap.map.scrollwheel == "true",
-    mapOptions.streetViewControl: wpsightMap.map.streetViewControl == "true"
+	mapOptions.scrollwheel: wpsightMap.map.scrollwheel == "true",
+	mapOptions.streetViewControl: wpsightMap.map.streetViewControl == "true"
 	
 	// the DOM element that will contain the map
 	var mapElement = document.getElementById(wpsightMap.map.id),
@@ -63,32 +63,32 @@ google.maps.event.addDomListener( window, 'load', function() {
 		});
 		// InfoBox extends the Google Maps JavaScript API V3 OverlayView class.
 		// An InfoBox behaves like a google.maps.InfoWindow, but it supports several additional properties for advanced styling. An InfoBox can also be used as a map label.
-    	// Reference: https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-    	newMarker.infobox = new InfoBox({ 
-    		
-    		// The content of the InfoBox (plain text or an HTML DOM node).
-    		content: markerOptions.infobox.content,
-    		
-    		// The URL of the image representing the close box. 
-    		// Note: The default is the URL for Google's standard close box. Set this property to "" if no close box is required.
-	        closeBoxURL: markerOptions.infobox.closeBoxURL,
-	        
-	        // Minimum offset (in pixels) from the InfoBox to the map edge after an auto-pan.
-	        infoBoxClearance: new google.maps.Size(1, 1)
-    	});
+		// Reference: https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
+		newMarker.infobox = new InfoBox({ 
+			
+			// The content of the InfoBox (plain text or an HTML DOM node).
+			content: markerOptions.infobox.content,
+			
+			// The URL of the image representing the close box. 
+			// Note: The default is the URL for Google's standard close box. Set this property to "" if no close box is required.
+			closeBoxURL: markerOptions.infobox.closeBoxURL,
+			
+			// Minimum offset (in pixels) from the InfoBox to the map edge after an auto-pan.
+			infoBoxClearance: new google.maps.Size(1, 1)
+		});
 		
 		// attach event to mouseover ("hover") on the marker
-    	google.maps.event.addListener(newMarker, "mouseover", function (e) {
+		google.maps.event.addListener(newMarker, "mouseover", function (e) {
 
-    		// before anything, close all other infoboxes
-    		for (var j = markers.length - 1; j >= 0; j--) {
-    			markers[j].infobox.close();
-    		};
-    		// open this infobox
+			// before anything, close all other infoboxes
+			for (var j = markers.length - 1; j >= 0; j--) {
+				markers[j].infobox.close();
+			};
+			// open this infobox
 			newMarker.infobox.open(map, this);
-    	});
+		});
 
-    	// set the map boundary to include this marker
+		// set the map boundary to include this marker
 		bounds.extend(newMarker.position);
 
 		// push this new marker to the markers array so we can reference it later
