@@ -104,11 +104,68 @@ function wpsight_listings_map( $atts = array() ) {
 	
 	// Get map listings
 	$map_query = wpsight_get_listings( array( 'nr' => $args['nr'] ) );
+
+	// build the options
+	$map_options = array( 
+		'map' => array( 
+			'mapTypeId'         => esc_js( $args['map_type'] ),
+			'mapTypeControl'    => esc_js( $args['control_type'] ),
+			'scrollwheel'       => esc_js( $args['scrollwheel'] ),
+			'streetViewControl' => esc_js( $args['streetview'] ),
+			'id'                => $args['map_id'],
+			'markers'           => array()
+		),
+	);
+
+	// build the markers
+	while( $map_query->have_posts() ) : $map_query->the_post();
+
+		$map_options['map']['markers'][] = array(
+			'title' => esc_js( get_the_title()),
+			'lat'   => esc_js( get_post_meta( get_the_id(), '_geolocation_lat', true )),
+			'lng'   => esc_js( get_post_meta( get_the_id(), '_geolocation_long', true )),
+			'icon' => array(
+				'url'        => WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/img/listings-map-marker.png',
+				'size'       => array( 24, 37),
+				'origin'     => array( 0, 0),
+				'anchor'     => array( 12, 37),
+				'scaledSize' => array( 24, 37)
+			),
+			// build the infobox
+			'infobox' => array(
+				'content'     => wpsight_listings_map_infobox( $args ),
+				'closeBoxURL' => ''
+			)
+		);
+
+	endwhile;
+
+	wp_enqueue_script( 'wpsight-map-frontend' );
+	wp_localize_script( 'wpsight-map-frontend', 'wpsightMap', apply_filters( 'wpsight_listings_map_options', $map_options ) ); 
 	
 	ob_start();
 	
-	wpsight_get_template_part( 'listings', $map_query->have_posts() ? 'map' : 'no', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );		
+	wpsight_get_template_part( 'listings', $map_query->have_posts() ? 'map' : 'no', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );
 	
 	return apply_filters( 'wpsight_listings_map', ob_get_clean(), $args );
 	
+}
+
+/**
+ *  Loads and returns the map infobox template.
+ *
+ *  @param   array  $args - See wpsight_listings_map function
+  * @uses    wpsight_get_template_part()
+ *  @return  string	infobox HTML
+ *
+ *  @since 1.0.0
+ */
+function wpsight_listings_map_infobox( $args ) {
+	
+	ob_start();
+	
+	// load templates/listings-map-infobox.php
+	wpsight_get_template_part( 'listings', 'map-infobox', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );
+	
+	return apply_filters( 'wpsight_listings_map_infobox', ob_get_clean(), $args );
 }
