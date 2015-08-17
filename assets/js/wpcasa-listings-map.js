@@ -3,7 +3,7 @@ google.maps.event.addDomListener( window, 'load', function() {
 	// Pull-in options from the wp_localize_script object.
 	// Use the 'wpsight_listings_map_options' filter to manipulate.
 	var mapOptions = wpsightMap.map;
-	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId];
+	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId],
 	mapOptions.mapTypeControl: wpsightMap.map.mapTypeControl == "true",
 	mapOptions.scrollwheel: wpsightMap.map.scrollwheel == "true",
 	mapOptions.streetViewControl: wpsightMap.map.streetViewControl == "true"
