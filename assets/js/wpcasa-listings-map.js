@@ -1,12 +1,14 @@
+/*global google, wpsightMap, InfoBox */
+
 google.maps.event.addDomListener( window, 'load', function() {
 
 	// Pull-in options from the wp_localize_script object.
 	// Use the 'wpsight_listings_map_options' filter to manipulate.
 	var mapOptions = wpsightMap.map;
-	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId],
-	mapOptions.mapTypeControl: wpsightMap.map.mapTypeControl == "true",
-	mapOptions.scrollwheel: wpsightMap.map.scrollwheel == "true",
-	mapOptions.streetViewControl: wpsightMap.map.streetViewControl == "true"
+	mapOptions.mapTypeId = google.maps.MapTypeId[wpsightMap.map.mapTypeId];
+	mapOptions.mapTypeControl = wpsightMap.map.mapTypeControl === "true";
+	mapOptions.scrollwheel = wpsightMap.map.scrollwheel === "true";
+	mapOptions.streetViewControl = wpsightMap.map.streetViewControl === "true";
 	
 	// the DOM element that will contain the map
 	var mapElement = document.getElementById(wpsightMap.map.id),
@@ -18,7 +20,20 @@ google.maps.event.addDomListener( window, 'load', function() {
 	map = new google.maps.Map(mapElement, mapOptions),
 	
 	// will hold all the generated markers
-	markers = []; 
+	markers = [],
+
+	// the event handler for hovering a marker
+	markerHoverHandler = function ( markers ) { 
+		
+		return function(){
+			// before anything, close all other infoboxes
+			for (var j = markers.length - 1; j >= 0; j--) {
+				markers[j].infobox.close();
+			}
+			// open this infobox
+			this.infobox.open(map, this);
+		};
+	};
 
 	// iterate over all markers
 	for ( var i = wpsightMap.map.markers.length - 1; i >= 0; i-- ) {
@@ -78,22 +93,14 @@ google.maps.event.addDomListener( window, 'load', function() {
 		});
 		
 		// attach event to mouseover ("hover") on the marker
-		google.maps.event.addListener(newMarker, "mouseover", function (e) {
-
-			// before anything, close all other infoboxes
-			for (var j = markers.length - 1; j >= 0; j--) {
-				markers[j].infobox.close();
-			};
-			// open this infobox
-			newMarker.infobox.open(map, this);
-		});
+		google.maps.event.addListener(newMarker, "mouseover", markerHoverHandler(markers));
 
 		// set the map boundary to include this marker
 		bounds.extend(newMarker.position);
 
 		// push this new marker to the markers array so we can reference it later
 		markers[i] = newMarker;
-	};
+	}
 
 	// Sets the viewport to contain the given bounds.
 	map.fitBounds(bounds);
