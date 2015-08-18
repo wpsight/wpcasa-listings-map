@@ -1,0 +1,78 @@
+.wpsight-listings-map-sc #map-canvas {
+	margin-bottom: 20px;
+}
+/**
+ *  INFOBOX
+ *
+ *  Example Markup Scheme:
+ *
+ *  <div class="wpsight-infobox" id="wpsight-infobox-38">
+ *		<div class="infobox-image">
+ *			<img class="attachment-post-thumbnail wp-post-image" [...]>			
+ *			<h3 class="infobox-title">
+ *				<a class="infox-title-link" [...]>
+ *					[...]
+ *				</a>
+ *			</h3>
+ *		</div>
+ *		<div class="infobox-content">
+ *			<p>[...]</p>
+ *		</div>
+ *		<div class="infobox-footer">
+ *			<p><a [...]>View details</a></p>
+ *		</div>
+ *	</div>
+ */
+
+.wpsight-infobox {
+	max-width: 200px;
+	background-color: white;
+	overflow: hidden;
+}
+.infobox-image {
+	position: relative;
+}
+/* darkens the post image for better readability of the title */
+.infobox-image:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-image: -webkit-linear-gradient( rgba(0,0,0,0), rgba(0,0,0,.5) );
+	background-image: linear-gradient( to bottom, rgba(0,0,0,0), rgba(0,0,0,.5) );
+}
+.infobox-image .wp-post-image {
+	border-radius: 0;
+    box-shadow: none;
+    display: block;
+}
+/* positions the title above the darkend post image */
+.infobox-image .infobox-title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: .5em 1em;
+}
+.infobox-title a.infox-title-link,
+.infobox-title a.infox-title-link:visited,
+.infobox-title a.infox-title-link:focus {
+	text-decoration: none;
+	color: white;
+}
+.infobox-title a.infox-title-link:hover {
+	text-decoration: underline;
+}
+.infobox-content {
+	padding: 15px;
+}
+.infobox-content p:last-child {
+	margin-bottom: 0;
+}
+.infobox-footer {
+	text-align: center;
+	text-transform: uppercase;
+}
