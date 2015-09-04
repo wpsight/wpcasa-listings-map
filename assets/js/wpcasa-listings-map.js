@@ -79,7 +79,7 @@ google.maps.event.addDomListener( window, 'load', function() {
 		// InfoBox extends the Google Maps JavaScript API V3 OverlayView class.
 		// An InfoBox behaves like a google.maps.InfoWindow, but it supports several additional properties for advanced styling. An InfoBox can also be used as a map label.
 		// Reference: https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/reference.html
-		newMarker.infobox = new InfoBox({ 
+		newMarker.infobox = new InfoBox({
 			
 			// The content of the InfoBox (plain text or an HTML DOM node).
 			content: markerOptions.infobox.content,
