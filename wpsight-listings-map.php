@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPCasa Listings Map
-Plugin URI: http://wpcasa.com/plugin/wpcasa-listings-map
+Plugin URI: http://wpcasa.com/addon/wpcasa-listings-map
 Description: Show all listings as markers on a central Google Map.
 Version: 1.0.0
 Author: WPSight
@@ -54,20 +54,42 @@ class WPSight_Listings_Map {
 
 		// Include shortcode
 		include 'includes/class-wpsight-listings-map-shortcode.php';
-
-		if ( is_admin() )
-			include 'includes/admin/class-wpsight-listings-map-admin.php';
+		
+		// Include admin part
+		
+		if ( is_admin() ) {
+			include( WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/includes/admin/class-wpsight-listings-map-admin.php' );
+			$this->admin = new WPSight_Listings_Map_Admin();
+		}
 
 		// Actions
 
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
-
-		// Filters
 
 		// Activation Hook
 		register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'activation' ) );
 
+	}
+
+	/**
+	 * init()
+	 
+	 * Initialize the plugin when WPCasa is loaded
+	 *
+	 * @param	object	$wpsight
+	 * @return	object	$wpsight->listings_map
+	 *
+	 * @since 1.0.0
+	 */
+	public static function init( $wpsight ) {
+		
+		if ( ! isset( $wpsight->listings_map ) )
+			$wpsight->listings_map = new self();
+
+		do_action_ref_array( 'wpsight_init_listings_map', array( &$wpsight ) );
+
+		return $wpsight->listings_map;
 	}
 
 	/**
@@ -106,11 +128,13 @@ class WPSight_Listings_Map {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		if ( ! is_admin() ) {
+
 			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpcasa-listings-map.css' );
 
 			wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-infobox', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-frontend', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . "/assets/js/wpcasa-listings-map$suffix.js", array( 'wpsight-map-googleapi', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
+
 		}
 
 	}
@@ -152,7 +176,7 @@ class WPSight_Listings_Map {
 			'listings_map_page'         => $page_id,
 			'listings_map_nr'           => 50,
 			'listings_map_width'        => '100%',
-			'listings_map_height'       => '600px',
+			'listings_map_height'       => '800px',
 			'listings_map_type'         => 'ROADMAP',
 			'listings_map_control_type' => '1',
 			'listings_map_control_nav'  => '1',
@@ -173,4 +197,4 @@ class WPSight_Listings_Map {
 
 }
 
-$GLOBALS['wpsight_listings_map'] = new WPSight_Listings_Map();
+add_action( 'wpsight_init', array( 'WPSight_Listings_Map', 'init' ) );
