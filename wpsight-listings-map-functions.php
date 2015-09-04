@@ -2,10 +2,9 @@
 /**
  * wpsight_listings_map()
  *
- * Create a Google map displaying
- * the latest listings.
+ * Create a Google map displaying the latest listings.
  *
- * @param array   $atts Array of arguments for the map display *
+ * @param array $atts Array of arguments for the map display
  * @uses wp_parse_args()
  * @uses wpsight_get_option()
  * @uses intval()
@@ -18,6 +17,7 @@
  *
  * @since 1.0.0
  */
+
 function wpsight_listings_map( $atts = array() ) {
 	global $map_query, $args;
 
@@ -103,7 +103,23 @@ function wpsight_listings_map( $atts = array() ) {
 	}
 
 	// Get map listings
-	$map_query = wpsight_get_listings( array( 'nr' => $args['nr'] ) );
+	
+	$map_query_args = array(
+		'nr' => $args['nr'],
+		'meta_query' => array(
+		'relation' => 'AND',
+			array(
+				'key'		=> '_geolocation_lat',
+				'compare'	=> 'EXISTS'
+			),
+			array(
+				'key'		=> '_geolocation_long',
+				'compare'	=> 'EXISTS'
+			)
+		)
+	);
+	
+	$map_query = wpsight_get_listings( $map_query_args );
 
 	// build the options
 	$map_options = array(
@@ -119,24 +135,28 @@ function wpsight_listings_map( $atts = array() ) {
 
 	// build the markers
 	while ( $map_query->have_posts() ) : $map_query->the_post();
-
-	$map_options['map']['markers'][] = array(
-		'title' => esc_js( get_the_title() ),
-		'lat'   => esc_js( get_post_meta( get_the_id(), '_geolocation_lat', true ) ),
-		'lng'   => esc_js( get_post_meta( get_the_id(), '_geolocation_long', true ) ),
-		'icon' => array(
+	
+		// set up filtrable icon options
+		$icon_options = apply_filters( 'wpsight_listings_map_icon', array(
 			'url'        => WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/img/listings-map-marker.png',
 			'size'       => array( 24, 37 ),
 			'origin'     => array( 0, 0 ),
 			'anchor'     => array( 12, 37 ),
 			'scaledSize' => array( 24, 37 )
-		),
-		// build the infobox
-		'infobox' => array(
-			'content'     => wpsight_listings_map_infobox( $args ),
-			'closeBoxURL' => ''
-		)
-	);
+		), get_the_id() );
+
+		// set up marker
+		$map_options['map']['markers'][] = array(
+			'title' => esc_js( get_post_meta( get_the_id(), '_listing_title', true ) ),
+			'lat'   => esc_js( get_post_meta( get_the_id(), '_geolocation_lat', true ) ),
+			'lng'   => esc_js( get_post_meta( get_the_id(), '_geolocation_long', true ) ),
+			'icon'	=> $icon_options,
+			// build the infobox
+			'infobox' => array(
+				'content'     => wpsight_listings_map_infobox( $args ),
+				'closeBoxURL' => ''
+			)
+		);
 
 	endwhile;
 
@@ -147,20 +167,20 @@ function wpsight_listings_map( $atts = array() ) {
 
 	wpsight_get_template_part( 'listings', $map_query->have_posts() ? 'map' : 'no', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );
 
-	return apply_filters( 'wpsight_listings_map', ob_get_clean(), $args );
+	return apply_filters( 'wpsight_listings_map', ob_get_clean(), $args, $atts );
 
 }
 
 /**
- *  Loads and returns the map infobox template.
+ * Loads and returns the map infobox template.
  *
- *  @param   array  $args - See wpsight_listings_map function
- *
+ * @param   array  $args - See wpsight_listings_map function
  * @uses    wpsight_get_template_part()
- *  @return  string infobox HTML
+ * @return  string infobox HTML
  *
- *  @since 1.0.0
+ * @since 1.0.0
  */
+
 function wpsight_listings_map_infobox( $args ) {
 
 	ob_start();
@@ -169,4 +189,5 @@ function wpsight_listings_map_infobox( $args ) {
 	wpsight_get_template_part( 'listings', 'map-infobox', $args, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/templates/' );
 
 	return apply_filters( 'wpsight_listings_map_infobox', ob_get_clean(), $args );
+
 }
