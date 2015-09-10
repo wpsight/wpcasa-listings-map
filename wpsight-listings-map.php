@@ -160,12 +160,12 @@ class WPSight_Listings_Map {
 		// Create favorites page
 
 		$page_data = array(
-			'post_title'     => _x( 'Listings Map', 'listings map page title', 'wpsight-listings-map' ),
-			'post_content'   => '[wpsight_listings_map]',
-			'post_type'      => 'page',
-			'post_status'    => 'publish',
-			'comment_status' => 'closed',
-			'ping_status'    => 'closed'
+			'post_title'		=> _x( 'Listings Map', 'listings map page title', 'wpsight-listings-map' ),
+			'post_content'		=> '[wpsight_listings_map]',
+			'post_type'			=> 'page',
+			'post_status'		=> 'publish',
+			'comment_status'	=> 'closed',
+			'ping_status'		=> 'closed'
 		);
 
 		$page_id = ! wpsight_get_option( 'listings_map_page' ) ? wp_insert_post( $page_data ) : false;
@@ -173,15 +173,15 @@ class WPSight_Listings_Map {
 		// Add some default options
 
 		$options = array(
-			'listings_map_page'         => $page_id,
-			'listings_map_nr'           => 50,
-			'listings_map_width'        => '100%',
-			'listings_map_height'       => '800px',
-			'listings_map_type'         => 'ROADMAP',
-			'listings_map_control_type' => '1',
-			'listings_map_control_nav'  => '1',
-			'listings_map_scrollwheel'  => '0',
-			'listings_map_streetview'   => '1'
+			'listings_map_page'			=> $page_id,
+			'listings_map_nr'			=> 50,
+			'listings_map_width'		=> '100%',
+			'listings_map_height'		=> '800px',
+			'listings_map_type'			=> 'ROADMAP',
+			'listings_map_control_type'	=> '1',
+			'listings_map_control_nav'	=> '1',
+			'listings_map_scrollwheel'	=> '0',
+			'listings_map_streetview'	=> '1'
 		);
 
 		foreach ( $options as $option => $value ) {
