@@ -91,11 +91,3 @@
 	padding: 10px 15px;
 	text-decoration: none;
 }
-
-/* Other Elements
-================================================== */
-
-.wpsight-infobox .wpsight-label,
-.wpsight-infobox .wpsight-featured {
-	display: none;
-}
