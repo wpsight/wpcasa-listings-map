@@ -115,6 +115,10 @@ function wpsight_listings_map( $atts = array() ) {
 			array(
 				'key'		=> '_geolocation_long',
 				'compare'	=> 'EXISTS'
+			),
+			array(
+				'key'		=> '_map_exclude',
+				'compare'	=> 'NOT EXISTS'
 			)
 		)
 	);
@@ -138,11 +142,11 @@ function wpsight_listings_map( $atts = array() ) {
 	
 		// set up filtrable icon options
 		$icon_options = apply_filters( 'wpsight_listings_map_icon', array(
-			'url'        => WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/img/listings-map-marker.png',
-			'size'       => array( 24, 37 ),
+			'url'        => 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
+			'size'       => array( 22, 40 ),
 			'origin'     => array( 0, 0 ),
-			'anchor'     => array( 12, 37 ),
-			'scaledSize' => array( 24, 37 )
+			'anchor'     => array( 11, 40 ),
+			'scaledSize' => array( 22, 40 )
 		), get_the_id() );
 
 		// set up marker
