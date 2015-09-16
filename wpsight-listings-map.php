@@ -129,7 +129,7 @@ class WPSight_Listings_Map {
 
 		if ( ! is_admin() ) {
 
-			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpcasa-listings-map.css' );
+			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map.css' );
 
 			wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-infobox', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
