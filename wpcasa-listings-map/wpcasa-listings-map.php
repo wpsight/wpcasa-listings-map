@@ -50,7 +50,7 @@ class WPSight_Listings_Map {
 		define( 'WPSIGHT_LISTINGS_MAP_COOKIE', WPSIGHT_DOMAIN . '_listings_map' );
 
 		// Include functions
-		include 'wpsight-listings-map-functions.php';
+		include 'wpcasa-listings-map-functions.php';
 
 		// Include shortcode
 		include 'includes/class-wpsight-listings-map-shortcode.php';
