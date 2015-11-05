@@ -3,29 +3,30 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
+/**
+ * WPSight_Listings_Map_Shortcode class
+ */
 class WPSight_Listings_Map_Shortcode {
 
 	/**
-	 * __construct()
-	 *
-	 * @access public
+	 *	Constructor
 	 */
 	public function __construct() {
 		add_shortcode( 'wpsight_listings_map', array( $this, 'shortcode_listings_map' ) );
 	}
 
 	/**
-	 * shortcode_favorites()
-	 *
-	 * Show the listings search form.
-	 *
-	 * @param array   $attr Shortcode attributes
-	 * @uses wpsight_search()
-	 * @uses wp_kses_allowed_html()
-	 *
-	 * @return string $output Entire shortcode output
-	 *
-	 * @since 1.0.0
+	 *	shortcode_listings_map()
+	 *	
+	 *	Show the listings map.
+	 *	
+	 *	@param	array   $attr	Shortcode attributes
+	 *	@uses	shortcode_atts()
+	 *	@uses	wpsight_listings_map()
+	 *	@uses	wp_kses_post()
+	 *	@return string	$output	Entire shortcode output
+	 *	
+	 *	@since 1.0.0
 	 */
 	public function shortcode_listings_map( $attr ) {
 

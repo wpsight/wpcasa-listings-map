@@ -1,23 +1,21 @@
 <?php
 /**
- * wpsight_listings_map()
- *
- * Create a Google map displaying the latest listings.
- *
- * @param array $atts Array of arguments for the map display
- * @uses wp_parse_args()
- * @uses wpsight_get_option()
- * @uses intval()
- * @uses sanitize_text_field()
- * @uses tag_escape()
- * @uses wpsight_get_listings()
- * @uses wpsight_get_template_part()
- *
- * @return mixed Listings map output
- *
- * @since 1.0.0
+ *	wpsight_listings_map()
+ *	
+ *	Create a Google map displaying the latest listings.
+ *	
+ *	@param	array	$atts	Array of arguments for the map display
+ *	@uses	wp_parse_args()
+ *	@uses	wpsight_get_option()
+ *	@uses	intval()
+ *	@uses	sanitize_text_field()
+ *	@uses	tag_escape()
+ *	@uses	wpsight_get_listings()
+ *	@uses	wpsight_get_template_part()
+ *	@return mixed	Listings map output
+ *	
+ *	@since 1.0.0
  */
-
 function wpsight_listings_map( $atts = array() ) {
 	global $map_query, $args;
 
@@ -176,13 +174,13 @@ function wpsight_listings_map( $atts = array() ) {
 }
 
 /**
- * Loads and returns the map infobox template.
- *
- * @param   array  $args - See wpsight_listings_map function
- * @uses    wpsight_get_template_part()
- * @return  string infobox HTML
- *
- * @since 1.0.0
+ *	Loads and returns the map infobox template.
+ *	
+ *	@param   array  $args	See wpsight_listings_map function
+ *	@uses    wpsight_get_template_part()
+ *	@return  string infobox HTML
+ *	
+ *	@since 1.0.0
  */
 
 function wpsight_listings_map_infobox( $args ) {

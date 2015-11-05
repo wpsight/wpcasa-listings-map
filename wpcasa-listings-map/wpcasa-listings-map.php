@@ -2,42 +2,43 @@
 /*
 Plugin Name: WPCasa Listings Map
 Plugin URI: http://wpcasa.com/addon/wpcasa-listings-map
-Description: Show all listings as markers on a central Google Map.
+Description: Show all listings as markers on a central Google Map using a shortcode.
 Version: 1.0.0
 Author: WPSight
 Author URI: http://wpsight.com
 Requires at least: 4.0
-Tested up to: 4.2.2
-Text Domain: wpsight-listings-map
+Tested up to: 4.3.1
+Text Domain: wpcasa-listings-map
 Domain Path: /languages
-
-	Copyright: 2015 Simon Rimkus
-	License: GNU General Public License v3.0
-	License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
 // Exit if accessed directly
-
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 /**
- * WPSight_Favorites class.
+ * WPSight_Listings_Map class
  */
 class WPSight_Listings_Map {
 
 	/**
-	 * Constructor
+	 *	Constructor
 	 */
 	public function __construct() {
 
 		// Define constants
-
+		
 		if ( ! defined( 'WPSIGHT_NAME' ) )
 			define( 'WPSIGHT_NAME', 'WPCasa' );
 
 		if ( ! defined( 'WPSIGHT_DOMAIN' ) )
 			define( 'WPSIGHT_DOMAIN', 'wpcasa' );
+		
+		if ( ! defined( 'WPSIGHT_SHOP_URL' ) )
+			define( 'WPSIGHT_SHOP_URL', 'http://wpsight.com/wpcasa' );
+
+		if ( ! defined( 'WPSIGHT_AUTHOR' ) )
+			define( 'WPSIGHT_AUTHOR', 'WPSight' );
 
 		define( 'WPSIGHT_LISTINGS_MAP_NAME', 'WPCasa Listings Map' );
 		define( 'WPSIGHT_LISTINGS_MAP_DOMAIN', 'wpcasa-listings-map' );
@@ -73,14 +74,14 @@ class WPSight_Listings_Map {
 	}
 
 	/**
-	 * init()
-	 
-	 * Initialize the plugin when WPCasa is loaded
-	 *
-	 * @param	object	$wpsight
-	 * @return	object	$wpsight->listings_map
-	 *
-	 * @since 1.0.0
+	 *	init()
+	 *	
+	 *	Initialize the plugin when WPCasa is loaded
+	 *	
+	 *	@param	object	$wpsight
+	 *	@return	object	$wpsight->listings_map
+	 *	
+	 *	@since 1.0.0
 	 */
 	public static function init( $wpsight ) {
 		
@@ -90,71 +91,66 @@ class WPSight_Listings_Map {
 		do_action_ref_array( 'wpsight_init_listings_map', array( &$wpsight ) );
 
 		return $wpsight->listings_map;
+
 	}
 
 	/**
-	 * load_plugin_textdomain()
-	 *
-	 * Set up localization for this plugin
-	 * loading the text domain.
-	 *
-	 * @uses load_plugin_textdomain()
-	 *
-	 * @since 1.0.0
+	 *	load_plugin_textdomain()
+	 *	
+	 *	Set up localization for this plugin
+	 *	loading the text domain.
+	 *	
+	 *	@uses	load_plugin_textdomain()
+	 *	
+	 *	@since 1.0.0
 	 */
-
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'wpsight-listings-map', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'wpcasa-listings-map', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
-	 * frontend_scripts()
-	 *
-	 * Register and enqueue JS scripts and CSS styles.
-	 * Also localize some JS to use PHP constants.
-	 *
-	 * @uses wpsight_get_option()
-	 * @uses wpsight_get_template_part()
-	 * @uses wp_enqueue_script()
-	 * @uses wp_enqueue_style()
-	 * @uses wp_localize_script()
-	 *
-	 * @since 1.0.0
+	 *	frontend_scripts()
+	 *	
+	 *	Register and enqueue JS scripts and CSS styles.
+	 *	Also localize some JS to use PHP constants.
+	 *	
+	 *	@uses	wpsight_get_option()
+	 *	@uses	wpsight_get_template_part()
+	 *	@uses	wp_enqueue_script()
+	 *	@uses	wp_enqueue_style()
+	 *	@uses	wp_localize_script()
+	 *	
+	 *	@since 1.0.0
 	 */
-
 	public function frontend_scripts() {
 
-		// Enqueue CSS styles
+		// Script debugging?
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		if ( ! is_admin() ) {
-
 			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map.css' );
-
 			wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-infobox', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-frontend', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . "/assets/js/wpcasa-listings-map$suffix.js", array( 'wpsight-map-googleapi', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
-
 		}
 
 	}
 
 	/**
-	 * activation()
-	 *
-	 * Callback for register_activation_hook
-	 * to create a default favorites page with
-	 * the [wpsight_favorites] shortcode and
-	 * to create some default options to be
-	 * used by this plugin.
-	 *
-	 * @uses wpsight_get_option()
-	 * @uses wp_insert_post()
-	 * @uses wpsight_add_option()
-	 *
-	 * @since 1.0.0
+	 *	activation()
+	 *	
+	 *	Callback for register_activation_hook
+	 *	to create a default favorites page with
+	 *	the [wpsight_favorites] shortcode and
+	 *	to create some default options to be
+	 *	used by this plugin.
+	 *	
+	 *	@uses	wpsight_get_option()
+	 *	@uses	wp_insert_post()
+	 *	@uses	wpsight_add_option()
+	 *	
+	 *	@since 1.0.0
 	 */
-
 	public function activation() {
 
 		// Create favorites page
@@ -168,7 +164,7 @@ class WPSight_Listings_Map {
 			'ping_status'		=> 'closed'
 		);
 
-		$page_id = ! wpsight_get_option( 'listings_map_page' ) ? wp_insert_post( $page_data ) : false;
+		$page_id = ! wpsight_get_option( 'listings_map_page' ) ? wp_insert_post( $page_data ) : wpsight_get_option( 'listings_map_page' );
 
 		// Add some default options
 
@@ -197,4 +193,5 @@ class WPSight_Listings_Map {
 
 }
 
+// Initialize plugin on wpsight_init
 add_action( 'wpsight_init', array( 'WPSight_Listings_Map', 'init' ) );
