@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPCasa Listings Map
-Plugin URI: http://wpcasa.com/addon/wpcasa-listings-map
+Plugin URI: https://wpcasa.com/downloads/wpcasa-listings-map
 Description: Show all listings as markers on a central Google Map using a shortcode.
 Version: 1.0.0
 Author: WPSight
@@ -128,10 +128,10 @@ class WPSight_Listings_Map {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		if ( ! is_admin() ) {
-			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map.css' );
+			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map' . $suffix . '.css' );
 			wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
 			wp_register_script( 'wpsight-map-infobox', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
-			wp_register_script( 'wpsight-map-frontend', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . "/assets/js/wpcasa-listings-map$suffix.js", array( 'wpsight-map-googleapi', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
+			wp_register_script( 'wpsight-map-frontend', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/wpcasa-listings-map' . $suffix . '.js', array( 'wpsight-map-googleapi', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
 		}
 
 	}

@@ -126,7 +126,7 @@ class WPSight_Listings_Map_Admin {
 		
 		$licenses['listings_map'] = array(
 			'name' => WPSIGHT_LISTINGS_MAP_NAME,
-			'desc' => sprintf( __( 'For premium support and seamless updates for %s please activate your license.', 'wpcasa' ), WPSIGHT_LISTINGS_MAP_NAME ),
+			'desc' => sprintf( __( 'For premium support and seamless updates for %s please activate your license.', 'wpcasa-listings-map' ), WPSIGHT_LISTINGS_MAP_NAME ),
 			'id'   => wpsight_underscores( WPSIGHT_LISTINGS_MAP_DOMAIN )
 		);
 		
