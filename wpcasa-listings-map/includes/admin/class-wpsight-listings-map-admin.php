@@ -40,7 +40,7 @@ class WPSight_Listings_Map_Admin {
 			
 			'listings_map_page' => array(
 				'name' 		=> __( 'Page', 'wpcasa-listings-map' ),
-				'desc' 		=> __( 'Please select the page that contains the listings page shortcode.', 'wpcasa-listings-map' ),
+				'desc' 		=> __( 'Please select the page that contains the listings map shortcode.', 'wpcasa-listings-map' ),
 				'id'   		=> 'listings_map_page',
 				'type' 		=> 'pages'
 			),
