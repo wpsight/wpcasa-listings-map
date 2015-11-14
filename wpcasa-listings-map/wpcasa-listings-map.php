@@ -68,9 +68,6 @@ class WPSight_Listings_Map {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
 
-		// Activation Hook
-		register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'activation' ) );
-
 	}
 
 	/**
@@ -151,7 +148,7 @@ class WPSight_Listings_Map {
 	 *	
 	 *	@since 1.0.0
 	 */
-	public function activation() {
+	public static function activation() {
 
 		// Create favorites page
 
@@ -192,6 +189,9 @@ class WPSight_Listings_Map {
 	}
 
 }
+
+// Activation Hook
+register_activation_hook( __FILE__, array( 'WPSight_Listings_Map', 'activation' ) );
 
 // Initialize plugin on wpsight_init
 add_action( 'wpsight_init', array( 'WPSight_Listings_Map', 'init' ) );
