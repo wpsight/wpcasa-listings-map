@@ -16,11 +16,8 @@ class WPSight_Listings_Map_Admin {
 		// Add addon options to general plugin settings
 		add_filter( 'wpsight_options', array( $this, 'options' ) );
 		
-		// Add addon license to licenses page
-		add_filter( 'wpsight_licenses', array( $this, 'license' ) );
-		
-		// Add plugin updater
-		add_action( 'admin_init', array( $this, 'update' ), 0 );
+		// Add meta box option to exclude listing
+		add_filter( 'wpsight_meta_box_listing_location_fields', array( $this, 'meta_box' ) );
 
 	}
 
@@ -114,54 +111,25 @@ class WPSight_Listings_Map_Admin {
 	}
 	
 	/**
-	 *	license()
+	 *	meta_box()
 	 *	
-	 *	Add addon license to licenses page
+	 *	Add exclude option to location meta box
 	 *	
-	 *	@return	array	$options_licenses
-	 *	
-	 *	@since 1.0.0
-	 */
-	public static function license( $licenses ) {
-		
-		$licenses['listings_map'] = array(
-			'name' => WPSIGHT_LISTINGS_MAP_NAME,
-			'desc' => sprintf( __( 'For premium support and seamless updates for %s please activate your license.', 'wpcasa-listings-map' ), WPSIGHT_LISTINGS_MAP_NAME ),
-			'id'   => wpsight_underscores( WPSIGHT_LISTINGS_MAP_DOMAIN )
-		);
-		
-		return $licenses;
-	
-	}
-	
-	/**
-	 *	update()
-	 *	
-	 *	Set up EDD plugin updater.
-	 *	
-	 *	@uses	class_exists()
-	 *	@uses	get_option()
-	 *	@uses	wpsight_underscores()
+	 *	@return	array	$fields
 	 *	
 	 *	@since 1.0.0
 	 */
-	function update() {
+	public static function meta_box( $fields ) {
 		
-		if( ! class_exists( 'EDD_SL_Plugin_Updater' ) )
-			return;
-
-		// Get license option
-		$licenses = get_option( 'wpsight_licenses' );		
-		$key = wpsight_underscores( WPSIGHT_LISTINGS_MAP_DOMAIN );
-	
-		// Setup the updater
-		$edd_updater = new EDD_SL_Plugin_Updater( WPSIGHT_SHOP_URL, WPSIGHT_LISTINGS_MAP_PLUGIN_DIR . '/wpcasa-listings-map.php', array(
-				'version' 	=> WPSIGHT_LISTINGS_MAP_VERSION,
-				'license' 	=> isset( $licenses[ $key ] ) ? trim( $licenses[ $key ] ) : false,
-				'item_name' => WPSIGHT_LISTINGS_MAP_NAME,
-				'author' 	=> WPSIGHT_AUTHOR
-			)
+		$fields['exclude'] = array(
+			'name'      => __( 'Listings Map', 'wpcasa' ),
+			'id'        => '_map_exclude',
+			'type'      => 'checkbox',
+			'desc'		=> __( 'Exclude from general listings map', 'wpcasa' ),
+			'priority'  => 70
 		);
+		
+		return $fields;
 	
 	}
 
