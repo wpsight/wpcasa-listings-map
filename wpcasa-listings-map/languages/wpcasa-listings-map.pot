@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: WPCasa Listings Map\n"
-"POT-Creation-Date: 2015-11-10 14:32+0100\n"
+"POT-Creation-Date: 2015-11-24 18:22+0100\n"
 "PO-Revision-Date: 2015-11-10 14:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,107 +20,115 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/admin/class-wpsight-listings-map-admin.php:42
+#: includes/admin/class-wpsight-listings-map-admin.php:45
 msgid "Page"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:43
-msgid "Please select the page that contains the listings page shortcode."
+#: includes/admin/class-wpsight-listings-map-admin.php:46
+msgid "Please select the page that contains the listings map shortcode."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:48
+#: includes/admin/class-wpsight-listings-map-admin.php:51
 msgid "Number"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:49
+#: includes/admin/class-wpsight-listings-map-admin.php:52
 msgid ""
 "Please enter the default number of listings shown on the map (<code>-1</"
 "code> to show all)."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:55
+#: includes/admin/class-wpsight-listings-map-admin.php:58
 msgid "Width"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:56
+#: includes/admin/class-wpsight-listings-map-admin.php:59
 msgid ""
 "Please enter the default width of the map (in <code>px</code> or <code>%</"
 "code>)."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:62
+#: includes/admin/class-wpsight-listings-map-admin.php:65
 msgid "Height"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:63
+#: includes/admin/class-wpsight-listings-map-admin.php:66
 msgid "Please enter the default height of the map (in <code>px</code>)."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:69
+#: includes/admin/class-wpsight-listings-map-admin.php:72
 msgid "Type"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:70
+#: includes/admin/class-wpsight-listings-map-admin.php:73
 msgid "Please select the default map type."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:72
+#: includes/admin/class-wpsight-listings-map-admin.php:75
 msgid "Roadmap"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:73
+#: includes/admin/class-wpsight-listings-map-admin.php:76
 msgid "Sattelite"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:74
+#: includes/admin/class-wpsight-listings-map-admin.php:77
 msgid "Hybrid"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:75
+#: includes/admin/class-wpsight-listings-map-admin.php:78
 msgid "Terrain"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:82
+#: includes/admin/class-wpsight-listings-map-admin.php:85
 msgid "Type Control"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:83
+#: includes/admin/class-wpsight-listings-map-admin.php:86
 msgid "Display type control"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:84
+#: includes/admin/class-wpsight-listings-map-admin.php:87
 msgid "Let the user change the map type."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:90
+#: includes/admin/class-wpsight-listings-map-admin.php:93
 msgid "Scrollwheel"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:91
+#: includes/admin/class-wpsight-listings-map-admin.php:94
 msgid "Enable scroll wheel"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:92
+#: includes/admin/class-wpsight-listings-map-admin.php:95
 msgid "Let the user change the map zoom using the scrollwheel."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:97
+#: includes/admin/class-wpsight-listings-map-admin.php:100
 msgid "Streetview"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:98
+#: includes/admin/class-wpsight-listings-map-admin.php:101
 msgid "Enable streetview"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:99
+#: includes/admin/class-wpsight-listings-map-admin.php:102
 msgid "Let the user activate streetview on the map."
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:108
+#: includes/admin/class-wpsight-listings-map-admin.php:111
 msgid "Map"
 msgstr ""
 
-#: includes/admin/class-wpsight-listings-map-admin.php:129
+#: includes/admin/class-wpsight-listings-map-admin.php:131
+msgid "Listings Map"
+msgstr ""
+
+#: includes/admin/class-wpsight-listings-map-admin.php:134
+msgid "Exclude from general listings map"
+msgstr ""
+
+#: includes/admin/class-wpsight-listings-map-admin.php:155
 #, php-format
 msgid ""
 "For premium support and seamless updates for %s please activate your license."
@@ -130,7 +138,7 @@ msgstr ""
 msgid "View details"
 msgstr ""
 
-#: wpcasa-listings-map.php:159
+#: wpcasa-listings-map.php:156
 msgctxt "listings map page title"
 msgid "Listings Map"
 msgstr ""
