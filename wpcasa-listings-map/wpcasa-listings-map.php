@@ -10,6 +10,10 @@ Requires at least: 4.0
 Tested up to: 4.3.1
 Text Domain: wpcasa-listings-map
 Domain Path: /languages
+
+	Copyright: 2015 Simon Rimkus
+	License: GPLv2 or later
+	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Exit if accessed directly
