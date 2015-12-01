@@ -12,7 +12,7 @@ Text Domain: wpcasa-listings-map
 Domain Path: /languages
 
 	Copyright: 2015 Simon Rimkus
-	License: GPLv2 or later
+	License: GNU General Public License v2.0 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
