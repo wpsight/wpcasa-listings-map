@@ -12,9 +12,11 @@ Show all WPCasa listings as markers on a central Google Map using a shortcode.
 
 == Description ==
 
-WPCasa is a WordPress solution that provides an intuitive way to manage property listings and create first-class real estate websites.
+With the WPCasa Listings Map add-on you can display all your listings on a central map. Listings are displayed as markers with infoboxes with some basic information and a link to the full listing page.
 
 > Please notice that this plugin is an add-on for [WPCasa](https://wordpress.org/plugins/wpcasa/) and will NOT work without the core plugin.
+
+WPCasa is a WordPress solution that provides an intuitive way to manage property listings and create first-class real estate websites.
 
 * Website: [wpcasa.com](https://wpcasa.com)
 * Demo: [demo.wpcasa.com](http://demo.wpcasa.com)
@@ -40,9 +42,15 @@ No, this is an add-on plugin for the WPCasa real estate framework and will not w
 
 == Screenshots ==
 
-1. Listings map on static page
+1. Listings map infobox
+2. Add-on tab on WPCasa settings page
 
 == Changelog ==
+
+= 1.0.0 =
+* Initial release
+
+== Upgrade Notice ==
 
 = 1.0.0 =
 * Initial release
