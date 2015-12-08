@@ -37,12 +37,6 @@ class WPSight_Listings_Map {
 
 		if ( ! defined( 'WPSIGHT_DOMAIN' ) )
 			define( 'WPSIGHT_DOMAIN', 'wpcasa' );
-		
-		if ( ! defined( 'WPSIGHT_SHOP_URL' ) )
-			define( 'WPSIGHT_SHOP_URL', 'http://wpsight.com/wpcasa' );
-
-		if ( ! defined( 'WPSIGHT_AUTHOR' ) )
-			define( 'WPSIGHT_AUTHOR', 'WPSight' );
 
 		define( 'WPSIGHT_LISTINGS_MAP_NAME', 'WPCasa Listings Map' );
 		define( 'WPSIGHT_LISTINGS_MAP_DOMAIN', 'wpcasa-listings-map' );
