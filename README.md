@@ -6,7 +6,7 @@ With the WPCasa Listings Map add-on you can display all your listings on a centr
 **Please Notice!** This is an extension plugin and only works in combination with the [WPCasa Real Estate WordPress](https://github.com/wpsight/wpcasa) plugin.
 
 ## Demo
-Please feel free to visit our [demo site](http://demo.wpcasa.com/listings-map) where you can test the features of this add-on.
+Please feel free to visit our [demo site](http://demo.wpcasa.com/listings-map) where you can test this add-on.
 
 ## Support
 
