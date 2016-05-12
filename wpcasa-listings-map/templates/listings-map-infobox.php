@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="infobox-footer">
-		<p><a href="<?php the_permalink(); ?>" class="button"><?php _e( 'View details', 'wpsight-listings-map' ) ?></a></p>
+		<p><a href="<?php the_permalink(); ?>" class="button"><?php _e( 'View details', 'wpcasa-listings-map' ) ?></a></p>
 	</div>
 
 </div>
