@@ -2,12 +2,12 @@
 /*
 Plugin Name: WPCasa Listings Map
 Plugin URI: https://wpcasa.com/downloads/wpcasa-listings-map
-Description: Show all listings as markers on a central Google Map using a shortcode.
-Version: 1.0.1
+Description: Show listings as markers on a Google Map. This can be a central map with all listings or limited to a specific query.
+Version: 1.1.0
 Author: WPSight
 Author URI: http://wpsight.com
 Requires at least: 4.0
-Tested up to: 4.3.1
+Tested up to: 4.5.2
 Text Domain: wpcasa-listings-map
 Domain Path: /languages
 
@@ -40,7 +40,7 @@ class WPSight_Listings_Map {
 
 		define( 'WPSIGHT_LISTINGS_MAP_NAME', 'WPCasa Listings Map' );
 		define( 'WPSIGHT_LISTINGS_MAP_DOMAIN', 'wpcasa-listings-map' );
-		define( 'WPSIGHT_LISTINGS_MAP_VERSION', '1.0.1' );
+		define( 'WPSIGHT_LISTINGS_MAP_VERSION', '1.1.0' );
 		define( 'WPSIGHT_LISTINGS_MAP_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'WPSIGHT_LISTINGS_MAP_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
@@ -51,6 +51,9 @@ class WPSight_Listings_Map {
 		// Include functions
 		include 'wpcasa-listings-map-functions.php';
 
+		// Include styles
+		include 'includes/class-wpsight-listings-map-styles.php';
+		
 		// Include shortcode
 		include 'includes/class-wpsight-listings-map-shortcode.php';
 		
@@ -65,6 +68,12 @@ class WPSight_Listings_Map {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+		
+		// Display Show/hide map link in listings panel
+		add_action( 'wpsight_listings_panel_actions', array( $this, 'panel_map_link' ) );
+		
+		// Add map after listings panel
+		add_filter( 'wpsight_get_panel', array( $this, 'panel_map' ), 10, 2 );
 
 	}
 
@@ -109,11 +118,8 @@ class WPSight_Listings_Map {
 	 *	Register and enqueue JS scripts and CSS styles.
 	 *	Also localize some JS to use PHP constants.
 	 *	
-	 *	@uses	wpsight_get_option()
-	 *	@uses	wpsight_get_template_part()
 	 *	@uses	wp_enqueue_script()
 	 *	@uses	wp_enqueue_style()
-	 *	@uses	wp_localize_script()
 	 *	
 	 *	@since 1.0.0
 	 */
@@ -122,13 +128,69 @@ class WPSight_Listings_Map {
 		// Script debugging?
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		if ( ! is_admin() ) {
-			wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map' . $suffix . '.css' );
-			wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
-			wp_register_script( 'wpsight-map-infobox', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/infobox' . $suffix . '.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
-			wp_register_script( 'wpsight-map-frontend', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/wpcasa-listings-map' . $suffix . '.js', array( 'wpsight-map-googleapi', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
-		}
+		wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map' . $suffix . '.css' );
 
+		wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
+
+		wp_register_script( 'wpsight-map-infobox', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/infobox' . $suffix . '.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
+
+		wp_register_script( 'wpsight-map-markerclusterer', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/markerclusterer' . $suffix . '.js', array( 'wpsight-map-googleapi' ), WPSIGHT_LISTINGS_MAP_VERSION );
+		
+		wp_register_script( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/js/wpcasa-listings-map' . $suffix . '.js', array( 'wpsight-map-googleapi', 'wpsight-map-markerclusterer', 'wpsight-map-infobox' ), WPSIGHT_LISTINGS_MAP_VERSION );
+
+	}
+
+	/**
+	 *	panel_map_link()
+	 *	
+	 *	Add Show Map link to listings panel.
+	 *
+	 *	@uses	wpsight_get_option()
+	 *	
+	 *	@since 1.1.0
+	 */
+	public function panel_map_link() {
+		
+		if( ! wpsight_get_option( 'listings_map_panel' ) )
+			return;
+		
+		$link = sprintf( '<div class="listings-panel-action"><a href="#" class="toggle-map">%1$s</a></div>', wpsight_get_option( 'listings_map_panel_link', __( 'Toggle Map', 'wpcasa-listings-map' ) ) );
+		
+		echo apply_filters( 'wpsight_listings_panel_map_link', $link );
+		
+	}
+	
+	/**
+	 *	panel_map()
+	 *	
+	 *	Add map output after listings panel.
+	 *
+	 *	@param	string	$panel	Listings panel output
+	 *	@param	object	$query	Listings query
+	 *	@uses	wpsight_get_option()
+	 *	@uses	wpsight_listings_map()
+	 *	@return	string
+	 *	
+	 *	@since 1.1.0
+	 */
+	public function panel_map( $panel, $query ) {
+		
+		if( isset( $query->post_count ) && $query->post_count >= 1 && wpsight_get_option( 'listings_map_panel' ) ) {
+		
+			$args = array(
+				'map_id'		=> uniqid( 'listings-panel-' ),
+				'toggle'		=> false,
+				'toggle_button'	=> 'listings-panel',
+			);
+			
+			$panel_map = wpsight_get_listings_map( $args, $query );
+			
+			$panel = $panel . $panel_map;
+		
+		}
+		
+		return $panel;
+		
 	}
 
 	/**
@@ -148,7 +210,7 @@ class WPSight_Listings_Map {
 	 */
 	public static function activation() {
 
-		// Create favorites page
+		// Create map page
 
 		$page_data = array(
 			'post_title'		=> _x( 'Listings Map', 'listings map page title', 'wpsight-listings-map' ),
@@ -165,6 +227,8 @@ class WPSight_Listings_Map {
 
 		$options = array(
 			'listings_map_page'			=> $page_id,
+			'listings_map_panel'		=> '1',
+			'listings_map_panel_link'	=> __( 'Toggle Map', 'wpcasa-listings-map' ),
 			'listings_map_nr'			=> 50,
 			'listings_map_width'		=> '100%',
 			'listings_map_height'		=> '800px',

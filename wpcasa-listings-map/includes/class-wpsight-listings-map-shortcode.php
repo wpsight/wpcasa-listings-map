@@ -33,23 +33,28 @@ class WPSight_Listings_Map_Shortcode {
 		// Define defaults
 
 		$defaults = array(
-			'nr'           => '',
-			'width'        => '',
-			'height'       => '',
-			'map_type'     => '',
-			'control_type' => '',
-			'scrollwheel'  => '',
-			'streetview'   => '',
-			'before'       => '',
-			'after'        => '',
-			'wrap'         => 'div'
+			'nr'			=> '',
+			'width'			=> '',
+			'height'		=> '',
+			'map_type'		=> '',
+			'control_type'	=> '',
+			'scrollwheel'	=> '',
+			'streetview'	=> '',
+			'style'			=> '',
+			'map_id'		=> uniqid( 'shortcode-' ),
+			'toggle'		=> false,
+			'toggle_button'	=> __( 'Show Map', 'wpcasa-listings-map' ),
+			'cluster_grid'	=> 60,
+			'before'		=> '',
+			'after'			=> '',
+			'wrap'			=> 'div'
 		);
 
 		// Merge shortcodes atts with defaults
 		$atts = shortcode_atts( $defaults, $attr, 'wpsight_listings_map' );
 
 		// Get the listings map with shortocde atts
-		$listings_map = wpsight_listings_map( $atts );
+		$listings_map = wpsight_get_listings_map( $atts );
 
 		// Create shortcode output
 		$output = sprintf( '%1$s%3$s%2$s', wp_kses_post( $atts['before'] ), wp_kses_post( $atts['after'] ), $listings_map );

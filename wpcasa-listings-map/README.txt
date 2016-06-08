@@ -1,18 +1,22 @@
 === WPCasa Listings Map ===
-Contributors: wpsight, jancbeck, simonrimkus
+Contributors: wpsight, simonrimkus
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZRR56U2VTPZAQ
 Tags: real estate, realestate, map, location, Google Maps, listing, listings, property, properites, wpcasa
 Requires at least: 4.0
-Tested up to: 4.3.1
-Stable tag: 1.0.0
+Tested up to: 4.5.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show all WPCasa listings as markers on a central Google Map using a shortcode.
+Show listings as markers on a Google Map. This can be a central map with all listings or limited to a specific query.
 
 == Description ==
 
-With the WPCasa Listings Map add-on you can display all your listings on a central map. Listings are displayed as markers with infoboxes with some basic information and a link to the full listing page.
+With the WPCasa Listings Map add-on you can display all your listings on a central map. They will show as markers with infoboxes that include some basic information and a link to the full listing page.
+
+* Website: [wpcasa.com/downloads/wpcasa-listings-map](https://wpcasa.com/downloads/wpcasa-listings-map/)
+* Demo: [demo.wpcasa.com/listings-map](http://demo.wpcasa.com/listings-map/)
+* Documentation: [docs.wpcasa.com/article/wpcasa-listings-map](http://docs.wpcasa.com/article/wpcasa-listings-map/)
 
 > Please notice that this plugin is an add-on for [WPCasa](https://wordpress.org/plugins/wpcasa/) and will NOT work without the core plugin.
 
@@ -44,13 +48,20 @@ No, this is an add-on plugin for the WPCasa real estate framework and will not w
 
 1. Listings map infobox
 2. Add-on tab on WPCasa settings page
+3. Different map style
 
 == Changelog ==
+
+= 1.1.0 =
+* Add Snazzy Maps styles
+* Add map toggle option
+* Add custom query option
+* Host infobox.js with plugin files
 
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* Initial release
+= 1.1.0 =
+* Version 1.1.0 with map styles, toggle option and map custom queries.

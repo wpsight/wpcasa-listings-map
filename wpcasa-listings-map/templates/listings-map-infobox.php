@@ -4,7 +4,7 @@
 		<a href="<?php the_permalink(); ?>">
 			<?php wpsight_listing_thumbnail( get_the_id(), 'medium' ); ?>
 		</a>
-	</div>
+	</div><!-- .infobox-image -->
 	
 	<div class="infobox-header">
 		<h3 class="infobox-title"><a class="infobox-title-link" href="<?php the_permalink(); ?>"><?php the_title() ?></a></h3>
@@ -26,10 +26,10 @@
 
 		<?php wpsight_listing_summary(); ?>
 	
-	</div>
+	</div><!-- .infobox-content -->
 
 	<div class="infobox-footer">
-		<p><a href="<?php the_permalink(); ?>" class="button"><?php _e( 'View details', 'wpcasa-listings-map' ) ?></a></p>
+		<p><a href="<?php the_permalink(); ?>" class="button"><?php _e( 'View details', 'wpsight-listings-map' ) ?></a></p>
 	</div>
 
 </div>

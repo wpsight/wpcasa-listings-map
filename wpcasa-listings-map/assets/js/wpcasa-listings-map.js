@@ -1,7 +1,61 @@
-/*global google, wpsightMap, InfoBox */
+(function($) {
+	
+	var mapOptions = wpsightMap.map;
+	
+	if( 'true' != mapOptions.map_page ) {
+	
+		if($.cookie(mapOptions.cookie) != 'closed') {
+			$('#map-toggle-' + mapOptions.id).show();
+			$('#map-toggle-' + mapOptions.id + ' .toggle-map').addClass('open');
+			initialize(mapOptions.id);
+		}
+		
+		$('.toggle-map').click(function(e) {
+			e.preventDefault();
+		    if ($('#map-toggle-' + mapOptions.id).is(':visible')) {
+		
+		    	$.cookie(mapOptions.cookie, 'closed',{ expires: 60, path: mapOptions.cookie_path });
+		
+		        $('#' + mapOptions.id).animate(
+		            {
+		                opacity: '0'
+		            },
+		            100,
+		            function(){           	
+		                $('#map-toggle-' + mapOptions.id + ' .toggle-map').removeClass('open');
+		                $('#map-toggle-' + mapOptions.id).slideUp(150);
+		            }
+		        );
+		    }
+		    else {
+		        $('#map-toggle-' + mapOptions.id).slideDown(150, function(){
+		
+		        	$.cookie(mapOptions.cookie, 'open',{ expires: 60, path: mapOptions.cookie_path });
+		
+		            $('#' + mapOptions.id).animate(
+		                {
+		                    opacity: '1'
+		                },
+		                100
+		            );
+		            initialize(mapOptions.id);
+		    		$('#map-toggle-' + mapOptions.id + ' .toggle-map').addClass('open');
+		        });
+		    }   
+		});
+	
+	}
+	
+	var map_init = $('.map-init').attr('id');
+	
+	if( map_init.length ) {
+		initialize(map_init);
+	}
 
-google.maps.event.addDomListener( window, 'load', function() {
+}(jQuery));
 
+function initialize( mapId ) {
+	
 	// Pull-in options from the wp_localize_script object.
 	// Use the 'wpsight_listings_map_options' filter to manipulate.
 	var mapOptions = wpsightMap.map;
@@ -10,8 +64,19 @@ google.maps.event.addDomListener( window, 'load', function() {
 	mapOptions.scrollwheel = wpsightMap.map.scrollwheel === "true";
 	mapOptions.streetViewControl = wpsightMap.map.streetViewControl === "true";
 	
+	console.log( mapOptions );
+
+	if ( IsJsonString(wpsightMap.map.styles) ) {
+		mapOptions.styles = JSON.parse(wpsightMap.map.styles);
+	} else {
+		mapOptions.styles = wpsightMap.map.styles;
+	}
+	
+	var clusterOptions = wpsightMap.cluster;
+	clusterOptions.enableRetinaIcons = wpsightMap.cluster.enableRetinaIcons === "true";
+	
 	// the DOM element that will contain the map
-	var mapElement = document.getElementById(wpsightMap.map.id),
+	var mapElement = document.getElementById(mapId),
 	
 	// setup bounds object
 	bounds = new google.maps.LatLngBounds(), 
@@ -23,9 +88,9 @@ google.maps.event.addDomListener( window, 'load', function() {
 	markers = [],
 
 	// the event handler for hovering a marker
-	markerHoverHandler = function ( markers ) { 
+	markerEventHandler = function ( markers ) { 
 		
-		return function(){
+		return function(){			
 			// before anything, close all other infoboxes
 			for (var j = markers.length - 1; j >= 0; j--) {
 				markers[j].infobox.close();
@@ -53,6 +118,9 @@ google.maps.event.addDomListener( window, 'load', function() {
 
 			// Map on which to display Marker
 			map: map,
+			
+			// Add drop animation to markers
+			// animation: google.maps.Animation.DROP,
 
 			// Icon for the foreground:
 			// Reference: https://developers.google.com/maps/documentation/javascript/reference#Icon
@@ -74,7 +142,8 @@ google.maps.event.addDomListener( window, 'load', function() {
 				
 				// The size of the entire image after scaling, if any. Use this property to stretch/shrink an image or a sprite.
 				scaledSize: new google.maps.Size(parseInt(markerOptions.icon.scaledSize[0]), parseInt(markerOptions.icon.scaledSize[1]))
-			}
+			},
+
 		});
 		// InfoBox extends the Google Maps JavaScript API V3 OverlayView class.
 		// An InfoBox behaves like a google.maps.InfoWindow, but it supports several additional properties for advanced styling. An InfoBox can also be used as a map label.
@@ -89,11 +158,15 @@ google.maps.event.addDomListener( window, 'load', function() {
 			closeBoxURL: markerOptions.infobox.closeBoxURL,
 			
 			// Minimum offset (in pixels) from the InfoBox to the map edge after an auto-pan.
-			infoBoxClearance: new google.maps.Size(1, 1)
+			infoBoxClearance: new google.maps.Size(40, 40),
+			
+			// Offset of the InfoBox
+			pixelOffset: new google.maps.Size(markerOptions.infobox.pixelOffset[0], markerOptions.infobox.pixelOffset[1])
+
 		});
 		
-		// attach event to mouseover ("hover") on the marker
-		google.maps.event.addListener(newMarker, "mouseover", markerHoverHandler(markers));
+		// attach event to "mouseover" (hover) on the marker
+		google.maps.event.addListener(newMarker, "mouseover", markerEventHandler(markers));
 
 		// set the map boundary to include this marker
 		bounds.extend(newMarker.position);
@@ -101,10 +174,64 @@ google.maps.event.addDomListener( window, 'load', function() {
 		// push this new marker to the markers array so we can reference it later
 		markers[i] = newMarker;
 	}
+	
+	// set cluster styles with color, image and size
+	var clusterStyles = [
+		{
+			textColor: clusterOptions.styles[0].textColor,
+			url: clusterOptions.styles[0].url,
+			height: parseInt(clusterOptions.styles[0].height),
+			width: parseInt(clusterOptions.styles[0].width)
+		},
+		{
+			textColor: clusterOptions.styles[1].textColor,
+			url: clusterOptions.styles[1].url,
+			height: parseInt(clusterOptions.styles[1].height),
+			width: parseInt(clusterOptions.styles[1].width)
+		},
+		{
+			textColor: clusterOptions.styles[2].textColor,
+			url: clusterOptions.styles[2].url,
+			height: parseInt(clusterOptions.styles[2].height),
+			width: parseInt(clusterOptions.styles[2].width)
+		},
+		{
+			textColor: clusterOptions.styles[3].textColor,
+			url: clusterOptions.styles[3].url,
+			height: parseInt(clusterOptions.styles[3].height),
+			width: parseInt(clusterOptions.styles[3].width)
+		},
+		{
+			textColor: clusterOptions.styles[4].textColor,
+			url: clusterOptions.styles[4].url,
+			height: parseInt(clusterOptions.styles[4].height),
+			width: parseInt(clusterOptions.styles[4].width)
+		}
+	];
+	
+	// define cluster options
+	var mcOptions = {
+	    gridSize: parseInt(clusterOptions.gridSize),
+	    styles: clusterStyles
+	};
+	
+	// set up MarkerClusterer with markers and options
+	var markerCluster = new MarkerClusterer(map, markers, mcOptions);
 
 	// Sets the viewport to contain the given bounds.
 	map.fitBounds(bounds);
 
 	// Pans the map by the minimum amount necessary to contain the given LatLngBounds. 
-	map.panToBounds(bounds); 
-});
+	map.panToBounds(bounds);
+
+}
+
+// Helper function to check JSON string
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
