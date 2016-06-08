@@ -46,7 +46,8 @@ No, this is an add-on plugin for the WPCasa real estate framework and will not w
 
 == Screenshots ==
 
-1. Listings map infobox
+1. Map toggle on listings page
+2. Infobox after hovering a marker
 2. Add-on tab on WPCasa settings page
 3. Different map style
 
