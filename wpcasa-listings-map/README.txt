@@ -56,7 +56,12 @@ No, this is an add-on plugin for the WPCasa real estate framework and will not w
 * Add Snazzy Maps styles
 * Add map toggle option
 * Add custom query option
-* Host infobox.js with plugin files
+* Add Spanish translation
+* Update German translation
+
+= 1.0.1 =
+* Host infobox.js in add-on folder
+* Correct text domain
 
 = 1.0.0 =
 * Initial release
