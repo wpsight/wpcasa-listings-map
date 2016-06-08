@@ -48,7 +48,7 @@
 	
 	var map_init = $('.map-init').attr('id');
 	
-	if( map_init.length ) {
+	if( undefined !== map_init && map_init.length ) {
 		initialize(map_init);
 	}
 
@@ -63,8 +63,6 @@ function initialize( mapId ) {
 	mapOptions.mapTypeControl = wpsightMap.map.mapTypeControl === "true";
 	mapOptions.scrollwheel = wpsightMap.map.scrollwheel === "true";
 	mapOptions.streetViewControl = wpsightMap.map.streetViewControl === "true";
-	
-	console.log( mapOptions );
 
 	if ( IsJsonString(wpsightMap.map.styles) ) {
 		mapOptions.styles = JSON.parse(wpsightMap.map.styles);
