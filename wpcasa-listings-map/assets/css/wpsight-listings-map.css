@@ -20,8 +20,8 @@
 }
 
 .map-canvas img {
-	border-radius: 0;
-	box-shadow: none;
+	border-radius: 0 !important;
+	box-shadow: none !important;
 }
 
 .map-canvas .infobox-image img {
