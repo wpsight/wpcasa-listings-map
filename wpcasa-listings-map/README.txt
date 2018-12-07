@@ -1,10 +1,10 @@
 === WPCasa Listings Map ===
-Contributors: wpsight, simonrimkus
+Contributors: wpsight
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZRR56U2VTPZAQ
 Tags: real estate, realestate, map, location, google maps, listing, listings, property, properties, wpcasa
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 1.1.0
+Tested up to: 5.0.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,32 +42,42 @@ If you prefer to install the plugin manually, you need to download it to your lo
 
 = Will this plugin work without WPCasa?
 
-No, this is an add-on plugin for the WPCasa real estate framework and will not work without the core plugin.
+No, this is an add-on plugin for the [WPCasa](https://wordpress.com/plugins/wpcasa) plugin and will not work without it.
 
 == Screenshots ==
 
 1. Map toggle on listings page
-2. Infobox after hovering a marker
+2. Infobox after hovering/click a marker
 3. Different map style (many others included)
 4. Add-on tab on WPCasa settings page
 
 == Changelog ==
 
+= 1.2.0 =
+* NEW: Added Infobox Close Icon
+* NEW: Added Filter to use custom close icon
+* NEW: Added Option to display/hide close icon
+* NEW: Added Option to select event for infobox display (mouseover, click)
+* FIX: Fixed issue with broken maps caused by properties with no address.
+
 = 1.1.0 =
-* Add Snazzy Maps styles
-* Add map toggle option
-* Add custom query option
-* Add Spanish translation
-* Update German translation
+* NEW: Added Snazzy Maps styles
+* NEW: Added map toggle option
+* NEW: Added custom query option
+* NEW: Added Spanish translation
+* UPDATE: German translation
 
 = 1.0.1 =
-* Host infobox.js in add-on folder
-* Correct text domain
+* IMPROVEMENT: Host infobox.js in add-on folder
+* FIX: Correct text domain
 
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* Version 1.2.0 with close button, event option and additional filters
 
 = 1.1.0 =
 * Version 1.1.0 with map styles, toggle option and map custom queries.
