@@ -128,7 +128,7 @@ class WPSight_Listings_Map {
 		// Script debugging?
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map' . $suffix . '.css' );
+		wp_enqueue_style( 'wpsight-listings-map', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/css/wpsight-listings-map' . $suffix . '.css', array(), WPSIGHT_LISTINGS_MAP_VERSION );
 
 		wp_register_script( 'wpsight-map-googleapi', '//maps.googleapis.com/maps/api/js', null, WPSIGHT_LISTINGS_MAP_VERSION );
 
