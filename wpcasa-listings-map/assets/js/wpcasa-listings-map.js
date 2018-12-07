@@ -164,7 +164,7 @@ function initialize( mapId ) {
 		});
 		
 		// attach event to "mouseover" (hover) on the marker
-		google.maps.event.addListener(newMarker, "mouseover", markerEventHandler(markers));
+		google.maps.event.addListener(newMarker, mapOptions.infobox_event, markerEventHandler(markers));
 
 		// set the map boundary to include this marker
 		bounds.extend(newMarker.position);

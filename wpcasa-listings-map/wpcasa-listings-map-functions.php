@@ -47,6 +47,8 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 		'toggle_button'	=> __( 'Show Map', 'wpcasa-listings-map' ),
 		'cluster_grid'	=> 60,
 		'map_page'		=> get_the_id() == wpsight_get_option( 'listings_map_page' ),
+		'infobox_event'	=> '',
+		'infobox_close'	=> ''
 	);
 
 	// Parse incoming $atts into an array and merge it with $defaults
@@ -128,6 +130,26 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 		$args['streetview'] = in_array( $args['streetview'], array( 'true', 'false' ) ) ? $args['streetview'] : $defaults['streetview'];
 	}
 	
+	// Check default option 'infobox_event'
+
+	if ( ! $args['infobox_event'] ) {
+		$option = wpsight_get_option( 'listings_map_infobox_event' );
+		if ( $option ) {
+			$args['infobox_event'] = in_array( $option, array( 'mouseover', 'click' ) ) ? $option : $defaults['infobox_event'];
+		} else {
+			$args['infobox_event'] = 'mouseover';
+		}
+	}
+	
+	// Check default option 'infobox_close'
+
+	if ( ! $args['infobox_close'] ) {
+		$option = wpsight_get_option( 'listings_map_infobox_close' );
+		$args['infobox_close'] = $option ? 'true' : 'false';
+	} else {
+		$args['infobox_close'] = in_array( $args['infobox_close'], array( 'true', 'false' ) ) ? $args['infobox_close'] : $defaults['infobox_close'];
+	}
+	
 	// Check default option 'toggle'
 
 	if ( ! isset( $args['toggle'] ) || ( empty( $args['toggle'] ) && ! is_bool( $args['toggle'] ) ) ) {
@@ -178,6 +200,8 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 			'mapTypeControl'    => esc_js( $args['control_type'] ),
 			'scrollwheel'       => esc_js( $args['scrollwheel'] ),
 			'streetViewControl' => esc_js( $args['streetview'] ),
+			'infobox_event'		=> esc_js( $args['infobox_event'] ),
+			'infobox_close'		=> esc_js( $args['infobox_close'] ),
 			'id'                => esc_attr( $args['map_id'] ),
 			'markers'           => array(),
 			'styles'			=> WPSight_Listings_Map_Styles::get_map_style( $args['style'] ),
@@ -250,7 +274,7 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 			// build the infobox
 			'infobox' => array(
 				'content'		=> wpsight_listings_map_infobox( $args ),
-				'closeBoxURL'	=> '',
+				'closeBoxURL'	=> ($args['infobox_close'] == 'true') ? apply_filters( 'wpsight_listings_map_infobox_close_icon', WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/images/close.png') : '',
 				'pixelOffset'	=> array( 24, -20 )
 			)
 		);

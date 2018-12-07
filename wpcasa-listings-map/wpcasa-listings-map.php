@@ -226,17 +226,19 @@ class WPSight_Listings_Map {
 		// Add some default options
 
 		$options = array(
-			'listings_map_page'			=> $page_id,
-			'listings_map_panel'		=> '1',
-			'listings_map_panel_link'	=> __( 'Toggle Map', 'wpcasa-listings-map' ),
-			'listings_map_nr'			=> 50,
-			'listings_map_width'		=> '100%',
-			'listings_map_height'		=> '800px',
-			'listings_map_type'			=> 'ROADMAP',
-			'listings_map_control_type'	=> '1',
-			'listings_map_control_nav'	=> '1',
-			'listings_map_scrollwheel'	=> '0',
-			'listings_map_streetview'	=> '1'
+			'listings_map_page'				=> $page_id,
+			'listings_map_panel'			=> '1',
+			'listings_map_panel_link'		=> __( 'Toggle Map', 'wpcasa-listings-map' ),
+			'listings_map_nr'				=> 50,
+			'listings_map_width'			=> '100%',
+			'listings_map_height'			=> '800px',
+			'listings_map_type'				=> 'ROADMAP',
+			'listings_map_control_type'		=> '1',
+			'listings_map_control_nav'		=> '1',
+			'listings_map_scrollwheel'		=> '0',
+			'listings_map_streetview'		=> '1',
+			'listings_map_infobox_event'	=> 'mouseover',
+			'listings_map_infobox_close'	=> '1'
 		);
 
 		foreach ( $options as $option => $value ) {
