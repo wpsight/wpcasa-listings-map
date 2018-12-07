@@ -49,6 +49,9 @@ class WPSight_Listings_Map_Shortcode {
 			'after'			=> '',
 			'wrap'			=> 'div'
 		);
+		
+		// Add custom vars to $defaults
+		$defaults = array_merge( $defaults, wpsight_listing_query_vars() );
 
 		// Merge shortcodes atts with defaults
 		$atts = shortcode_atts( $defaults, $attr, 'wpsight_listings_map' );

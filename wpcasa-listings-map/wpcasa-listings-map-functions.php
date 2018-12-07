@@ -30,7 +30,7 @@ function wpsight_listings_map( $atts = array(), $map_query = array() ) {
  *	@since 1.1.0
  */
 function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
-
+	
 	// Define defaults
 
 	$defaults = array(
@@ -164,8 +164,8 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 	$map_query_args = array(
 		'nr'			=> $args['nr'],
 		'paged'			=> 1,
-		'meta_query' => array(
-		'relation' => 'AND',
+		'meta_query'	=> array(
+			'relation' => 'AND',
 			array(
 				'key'		=> '_geolocation_lat',
 				'compare'	=> 'EXISTS'
@@ -180,6 +180,57 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 			)
 		)
 	);
+
+	// Set tax query for listing taxonomies
+
+	foreach ( wpsight_taxonomies( 'names' ) as $k ) {
+
+		if ( ! empty( $args[$k] ) ) {
+
+			// Set operator
+			$operator = 'IN';
+
+			// Get search field
+			$search_field = wpsight_get_search_field( $k );
+
+			// Get search field operator
+			$search_field_operator = isset( $search_field['data']['operator'] ) ? $search_field['data']['operator'] : false;
+
+			if ( $search_field_operator == 'AND' )
+				$operator = 'AND';
+
+			// If multiple $_GET terms, implode comma
+
+			if ( is_array( $args[$k] ) )
+				$args[$k] = implode( ',', $args[$k] );
+
+			// Check URL for multiple terms
+
+			if ( strpos( $args[$k], ',' ) ) {
+				$args[$k] = explode( ',', $args[$k] );
+			} elseif ( strpos( $args[$k], '|' ) ) {
+				$args[$k] = explode( '|', $args[$k] );
+				$operator = 'AND';
+			}
+
+			if ( ! empty( $args[$k] ) ) {
+
+				$map_query_args['tax_query'][$k] = array(
+					'taxonomy' => $k,
+					'field'    => 'slug',
+					'terms'    => $args[$k],
+					'operator' => $operator
+				);
+
+			}
+
+		}
+
+	}
+
+	// Remove tax_query if empty
+	if ( empty( $map_query_args['tax_query'] ) )
+		unset( $map_query_args['tax_query'] );
 		
 	if( is_object( $map_query ) ) {
 		

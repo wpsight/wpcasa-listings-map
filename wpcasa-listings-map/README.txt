@@ -54,6 +54,7 @@ No, this is an add-on plugin for the [WPCasa](https://wordpress.com/plugins/wpca
 == Changelog ==
 
 = 1.2.0 =
+* NEW: Added Taxonomy Queries for limiting markers on the map for specific locations, features, listing-categories or listing-types
 * NEW: Added Infobox Close Icon
 * NEW: Added Filter to use custom close icon
 * NEW: Added Option to display/hide close icon
