@@ -154,7 +154,7 @@ class WPSight_Listings_Map {
 		if( ! wpsight_get_option( 'listings_map_panel' ) )
 			return;
 		
-		$link = sprintf( '<div class="listings-panel-action"><a href="#" class="toggle-map">%1$s</a></div>', wpsight_get_option( 'listings_map_panel_link', __( 'Toggle Map', 'wpcasa-listings-map' ) ) );
+		$link = sprintf( '<div class="listings-panel-action"><a href="#" class="toggle-map">%1$s</a></div>', apply_filters( 'wpsight_listings_panel_map_link_label', wpsight_get_option( 'listings_map_panel_link', __( 'Toggle Map', 'wpcasa-listings-map' ) ) ) );
 		
 		echo apply_filters( 'wpsight_listings_panel_map_link', $link );
 		
