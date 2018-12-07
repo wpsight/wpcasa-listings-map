@@ -109,14 +109,14 @@
 	text-decoration: none;
 }
 
-/* infobox fade in and up animation */
+/* Infobox fade in and up animation */
 
-.wpsight-infobox {
-    -webkit-animation: fadeIn 250ms; 
-    animation: fadeIn 250ms;
+.infoBox {
+    -webkit-animation: fadeInUpSmall 250ms; 
+    animation: fadeInUpSmall 250ms;
 }
 
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes fadeInUpSmall {
     from {
         opacity: 0;
         margin-top: 5px;
@@ -127,7 +127,7 @@
     }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInUpSmall {
     from {
         opacity: 0;
         margin-top: 5px;
