@@ -137,3 +137,14 @@
         margin-top: 0;
     }
 }
+
+/* Listings Map Infobox Close Button
+================================================== */
+
+.infoBox > img {
+    margin: 0 !important;
+    position: absolute !important;
+    top: -1px;
+    right: 0;
+    z-index: 1;
+}
