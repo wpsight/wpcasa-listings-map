@@ -225,6 +225,13 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 	// build the markers
 	while ( $map_query->have_posts() ) : $map_query->the_post();
 	
+		$geo_lat = esc_js( get_post_meta( get_the_id(), '_geolocation_lat', true ) );
+		$geo_lng = esc_js( get_post_meta( get_the_id(), '_geolocation_long', true ) );
+		
+		// continue if no lat/long is available
+		if ( ! $geo_lat || ! $geo_lng )
+			continue;
+
 		// set up filtrable icon options
 		$icon_options = apply_filters( 'wpsight_listings_map_icon', array(
 			'url'        => WPSIGHT_LISTINGS_MAP_PLUGIN_URL . '/assets/images/spotlight-poi.png',
@@ -237,8 +244,8 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 		// set up marker
 		$map_options['map']['markers'][] = array(
 			'title' => esc_js( get_post_meta( get_the_id(), '_listing_title', true ) ),
-			'lat'   => esc_js( get_post_meta( get_the_id(), '_geolocation_lat', true ) ),
-			'lng'   => esc_js( get_post_meta( get_the_id(), '_geolocation_long', true ) ),
+			'lat'   => $geo_lat,
+			'lng'   => $geo_lng,
 			'icon'	=> $icon_options,
 			// build the infobox
 			'infobox' => array(
