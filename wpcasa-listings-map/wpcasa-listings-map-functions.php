@@ -331,6 +331,7 @@ function wpsight_get_listings_map( $atts = array(), $map_query = array() ) {
 		);
 
 	endwhile;
+    wp_reset_query();
 
 	wp_enqueue_script( 'wpsight-listings-map' );
 	wp_localize_script( 'wpsight-listings-map', 'wpsightMap', apply_filters( 'wpsight_listings_map_options', $map_options ) );
