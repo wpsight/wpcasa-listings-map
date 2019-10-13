@@ -53,6 +53,7 @@ No, this is an add-on plugin for the [WPCasa](https://wordpress.com/plugins/wpca
 
 == Changelog ==
 = 1.2.1 =
+* ADD: Added reset query after global post overloading
 * FIX: Fixed issue with plugin options not displaying 
 
 = 1.2.0 =
