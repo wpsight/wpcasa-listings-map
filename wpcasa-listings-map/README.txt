@@ -3,8 +3,8 @@ Contributors: wpsight
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7EVKNVA7QFXZ8
 Tags: real estate, realestate, map, location, google maps, listing, listings, property, properties, wpcasa
 Requires at least: 4.0
-Tested up to: 5.0.0
-Stable tag: 1.2.0
+Tested up to: 5.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,8 @@ No, this is an add-on plugin for the [WPCasa](https://wordpress.com/plugins/wpca
 4. Add-on tab on WPCasa settings page
 
 == Changelog ==
+= 1.2.1 =
+* FIX: Fixed issue with plugin options not displaying 
 
 = 1.2.0 =
 * NEW: Added Taxonomy Queries for limiting markers on the map for specific locations, features, listing-categories or listing-types
