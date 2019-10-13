@@ -1,6 +1,6 @@
 === WPCasa Listings Map ===
 Contributors: wpsight
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZRR56U2VTPZAQ
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7EVKNVA7QFXZ8
 Tags: real estate, realestate, map, location, google maps, listing, listings, property, properties, wpcasa
 Requires at least: 4.0
 Tested up to: 5.0.0
