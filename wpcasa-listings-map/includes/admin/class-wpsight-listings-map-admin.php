@@ -13,7 +13,7 @@ class WPSight_Listings_Map_Admin {
 	 */
 	public function __construct() {
 		
-		if( version_compare( '1.1.0', WPSIGHT_VERSION, '<=' ) ) {
+		if( version_compare( '1.2.0', WPSIGHT_VERSION, '<=' ) ) {
 			
 			// Add addon options to maps options
 			add_filter( 'wpsight_options_maps', array( $this, 'options' ) );
@@ -45,7 +45,7 @@ class WPSight_Listings_Map_Admin {
 		$name	= __( 'Maps', 'wpcasa-listings-map' );
 		$icon	= 'dashicons dashicons-location-alt';
 		
-		if( version_compare( '1.1.0', WPSIGHT_VERSION, '<=' ) ) {
+		if( version_compare( '1.2.0', WPSIGHT_VERSION, '<=' ) ) {
 			
 //			$options_maps['pageheading_map'] = array(
 //				'name'	=> $name,
@@ -219,7 +219,7 @@ class WPSight_Listings_Map_Admin {
 			'default'	=> '1'
 		);
 		
-		if( version_compare( '1.1.0', WPSIGHT_VERSION, '<=' ) ) {
+		if( version_compare( '1.2.0', WPSIGHT_VERSION, '<=' ) ) {
 			return array_merge( $options, $options_maps );
 		} else {
 			$label = $name;
