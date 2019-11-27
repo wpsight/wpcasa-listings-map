@@ -225,8 +225,8 @@ class WPSight_Listings_Map_Admin {
 			$label = $name;
 		}
 				
-		$options['listings_map'] = array(	
-			$label,
+		$options['listings_map'] = array(
+		    '<span class="dashicons dashicons-location-alt"></span>' . $label,
 			apply_filters( 'wpsight_listings_map_options', $options_maps )
 		);
 		
