@@ -175,7 +175,7 @@ class WPSight_Listings_Map {
 	 */
 	public function panel_map( $panel, $query ) {
 		
-		if( isset( $query->post_count ) && $query->post_count >= 1 && wpsight_get_option( 'listings_map_panel' ) ) {
+		if( isset( $query->post_count ) && $query->post_count >= 1 ) {
 		
 			$args = array(
 				'map_id'		=> uniqid( 'listings-panel-' ),
