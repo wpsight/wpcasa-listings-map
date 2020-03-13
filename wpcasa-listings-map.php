@@ -3,17 +3,13 @@
 Plugin Name: WPCasa Listings Map
 Plugin URI: https://wpcasa.com/downloads/wpcasa-listings-map
 Description: Show listings as markers on a Google Map. This can be a central map with all listings or limited to a specific query.
-Version: 1.2.1
+Version: 1.2.2
 Author: WPSight
 Author URI: http://wpsight.com
 Requires at least: 4.0
-Tested up to: 5.2.0
+Tested up to: 5.3.2
 Text Domain: wpcasa-listings-map
 Domain Path: /languages
-
-	Copyright: 2015 Simon Rimkus
-	License: GNU General Public License v2.0 or later
-	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 // Exit if accessed directly
@@ -40,7 +36,7 @@ class WPSight_Listings_Map {
 
 		define( 'WPSIGHT_LISTINGS_MAP_NAME', 'WPCasa Listings Map' );
 		define( 'WPSIGHT_LISTINGS_MAP_DOMAIN', 'wpcasa-listings-map' );
-		define( 'WPSIGHT_LISTINGS_MAP_VERSION', '1.2.1' );
+		define( 'WPSIGHT_LISTINGS_MAP_VERSION', '1.2.2' );
 		define( 'WPSIGHT_LISTINGS_MAP_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'WPSIGHT_LISTINGS_MAP_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
