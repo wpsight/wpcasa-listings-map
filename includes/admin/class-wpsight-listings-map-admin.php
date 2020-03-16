@@ -41,23 +41,6 @@ class WPSight_Listings_Map_Admin {
 	 *	@since 1.0.0
 	 */
 	public function options( $options ) {
-		
-		$name	= __( 'Maps', 'wpcasa-listings-map' );
-		$icon	= 'dashicons dashicons-location-alt';
-		
-		if( version_compare( '1.2.0', WPSIGHT_VERSION, '<=' ) ) {
-			
-//			$options_maps['pageheading_map'] = array(
-//				'name'	=> $name,
-//				'desc'	=> __( '', 'wpcasa-listings-map' ),
-//				'icon'	=> $icon,
-//				'link'	=> 'https://docs.wpcasa.com/article/wpcasa-listings-map/',
-//				'id'	=> 'pageheading_map',
-//				'type'	=> 'pageheading'
-//			);
-			
-		}
-		
 		$options_maps['heading_listings_map_general'] = array(
 			'name'		=> __( 'General Map Settings', 'wpcasa-listings-map' ),
 			'desc'		=> __( '', 'wpcasa-listings-map' ),
@@ -219,19 +202,15 @@ class WPSight_Listings_Map_Admin {
 			'default'	=> '1'
 		);
 		
-		if( version_compare( '1.2.0', WPSIGHT_VERSION, '<=' ) ) {
-			return array_merge( $options, $options_maps );
+		if( version_compare( '1.1.0', WPSIGHT_VERSION, '<' ) ) {
+            //      add options to main maps tab
+            $options['maps'][1] = array_merge ($options['maps'][1], apply_filters( 'wpsight_listings_map_options', $options_maps ) );
 		} else {
-			$label = $name;
-		}
-				
-//		$options['listings_map'] = array(
-//		    '<span class="dashicons dashicons-location-alt"></span>' . $label,
-//			apply_filters( 'wpsight_listings_map_options', $options_maps )
-//		);
-
-//      add options to main maps tab
-        $options['maps'][1] = array_merge ($options['maps'][1], apply_filters( 'wpsight_listings_map_options', $options_maps ) );
+            $options['listings_map'] = array(
+                __( 'Maps', 'wpcasa-listings-map' ),
+                apply_filters( 'wpsight_listings_map_options', $options_maps )
+            );
+        }
 
         return $options;
 
